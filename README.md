@@ -1,4 +1,3 @@
 # todo-app
 
-a [Sails](http://sailsjs.org) application
-# todo-app
+A [Sails.js](http://sailsjs.org)+[AngularJS](https://angularjs.org/) application.
