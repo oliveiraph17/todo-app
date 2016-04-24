@@ -3,26 +3,28 @@ var task_module = angular.module('todo.task', []);
 task_module.factory('TaskService', function($http) {
     return {
         'create': function(task) {
-            return $http.post('/todo/create', task);
+            return $http.post('/task/create', task);
         },
+
         'read': function() {
-            return $http.get('/todo/read');
+            return $http.get('/task/read');
         },
+
         'delete': function(task) {
-            return $http.post('/todo/delete', task);
+            return $http.post('/task/delete', task);
         }
     }
 });
 
 task_module.controller('TaskController', ['$scope', 'TaskService', function($scope, TaskService) {
-    $scope.form_task = {};
-    $scope.task_list = [];
+    $scope.form_data = {};
+    $scope.tasks = [];
 
     // Tries to read existing tasks from server
     TaskService.read().then(
         // Success
         function(response) {
-            $scope.task_list = response;
+            $scope.tasks = response.data;
         },
         // Error
         function(response) {
@@ -31,11 +33,11 @@ task_module.controller('TaskController', ['$scope', 'TaskService', function($sco
     );
 
     $scope.create = function() {
-        TaskService.create($scope.form_task).then(
+        TaskService.create($scope.form_data).then(
             // Success
             function(response) {
-                $scope.task_list.push($scope.form_task);
-                $scope.form_task = {};
+                $scope.tasks.push($scope.form_data);
+                $scope.form_data = {};
             },
             // Error
             function(response) {
@@ -48,7 +50,7 @@ task_module.controller('TaskController', ['$scope', 'TaskService', function($sco
         TaskService.delete(task).then(
             // Success
             function(response) {
-                $scope.task_list.splice($scope.task_list.indexOf(task), 1);
+                $scope.tasks.splice($scope.tasks.indexOf(task), 1);
             },
             // Error
             function(response) {

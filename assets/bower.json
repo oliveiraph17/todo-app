@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-latest": "*",
+    "angular": "*",
     "angular-route": "*",
     "bootstrap": "*",
     "jquery": "*"

@@ -2,11 +2,11 @@
     <div class="jumbotron">
         <h1 align="center">todo-app</h1>
         <br>
-        <div id="todo-form" class="row">
+        <div class="row">
             <div class="col-sm-8 col-sm-offset-2 text-center">
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg text-center" placeholder="Create a task for your todo list!" ng-model="form_task.value">
+                        <input type="text" class="form-control input-lg" placeholder="Create a task for your todo list!" ng-model="form_data.value">
                         <br>
                         <button type="submit" class="btn btn-primary btn-lg" ng-click="create()">Create task</button>
                     </div>
@@ -14,14 +14,11 @@
             </div>
         </div>
     </div>
-    <div id="todo-list" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-            <div class="checkbox" ng-repeat="task in task_list">
-                <label>
-                    <input type="checkbox" ng-click="delete(task)">
-                    {{ todo.value }}
-                </label>
-            </div>
+    <div class="row checkbox" ng-repeat="task in tasks">
+        <div class="col-sm-6 col-sm-offset-3" >
+            <label>
+                <input type="checkbox" ng-click="delete(task)"> {{ task.value }}
+            </label>
         </div>
     </div>
 </div>
