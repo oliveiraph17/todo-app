@@ -6,7 +6,10 @@ app_module.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl: '/templates/index.html',
-            controller: 'TaskController'
+            controller: 'CreateTaskController'
+        }).when('/read', {
+            templateUrl: '/templates/read.html',
+            controller: 'ReadTaskController'
         }).otherwise({
             redirectTo: '/'
         })

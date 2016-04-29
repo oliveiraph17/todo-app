@@ -1,42 +1,37 @@
 var task_module = angular.module('todo.task', []);
 
 task_module.factory('TaskService', function($http) {
+    var tasks = [];
+
     return {
+        // Adds the task to the list of tasks in memory
+        'set_tasks': function(task) {
+            tasks.push(task);
+        },
+
+        // Gets the list of tasks in memory
+        'get_tasks': function() {
+            return tasks;
+        },
+
         'create': function(task) {
             return $http.post('/task/create', task);
         },
 
         'read': function() {
             return $http.get('/task/read');
-        },
-
-        'delete': function(task) {
-            return $http.post('/task/delete', task);
         }
     }
 });
 
-task_module.controller('TaskController', ['$scope', 'TaskService', function($scope, TaskService) {
+task_module.controller('CreateTaskController', ['$scope', 'TaskService', function($scope, TaskService) {
     $scope.form_data = {};
-    $scope.tasks = [];
-
-    // Tries to read existing tasks from server
-    TaskService.read().then(
-        // Success
-        function(response) {
-            $scope.tasks = response.data;
-        },
-        // Error
-        function(response) {
-            console.log('Could not fetch existing tasks from server.');
-        }
-    );
 
     $scope.create = function() {
         TaskService.create($scope.form_data).then(
             // Success
             function(response) {
-                $scope.tasks.push($scope.form_data);
+                TaskService.set_tasks($scope.form_data);
                 $scope.form_data = {};
             },
             // Error
@@ -45,17 +40,22 @@ task_module.controller('TaskController', ['$scope', 'TaskService', function($sco
             }
         );
     }
+}]);
 
-    $scope.delete = function(task) {
-        TaskService.delete(task).then(
-            // Success
-            function(response) {
-                $scope.tasks.splice($scope.tasks.indexOf(task), 1);
-            },
-            // Error
-            function(response) {
-                console.log('Could not delete task.');
-            }
-        );
-    }
+task_module.controller('ReadTaskController', ['$scope', 'TaskService', function($scope, TaskService) {
+    // Binds the variable in the scope to the variable of the service
+    $scope.tasks = TaskService.get_tasks();
+
+    // Tries to read existing tasks from server
+    TaskService.read().then(
+        // Success
+        function(response) {
+            // Updates both the variable in the scope and the variable of the service
+            $scope.tasks = response.data;
+        },
+        // Error
+        function(response) {
+            console.log('Could not fetch existing tasks from server.');
+        }
+    );
 }]);

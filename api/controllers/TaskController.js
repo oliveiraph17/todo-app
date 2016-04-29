@@ -22,14 +22,5 @@ module.exports = {
         TaskService.read(function(tasks) {
             return res.json(tasks);
         });
-    },
-
-    // /task/delete
-    delete: function(req, res) {
-        var task_value = (req.body.value) ? req.body.value : undefined;
-
-        TaskService.delete(task_value, function(result) {
-            return res.json(result);
-        });
     }
 };

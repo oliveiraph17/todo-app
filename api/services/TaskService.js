@@ -20,17 +20,5 @@ module.exports = {
 
             callback(tasks);
         });
-    },
-
-    delete: function(task_value, callback) {
-        var task = {value: task_value};
-
-        Task.destroy(task).exec(function(err, result) {
-            if (err) {
-                throw err;
-            }
-
-            callback(result);
-        });
     }
 };

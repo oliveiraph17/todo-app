@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="jumbotron" ng-controller="ReadTaskController">
+        <h1 class="text-center">Your tasks:</h1>
+        <br>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <div ng-repeat="task in tasks">
+                    <p>{{ task.value }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

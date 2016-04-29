@@ -1,5 +1,5 @@
-<div class="container" ng-controller="TaskController">
-    <div class="jumbotron">
+<div class="container">
+    <div class="jumbotron" ng-controller="CreateTaskController">
         <h1 align="center">todo-app</h1>
         <br>
         <div class="row">
@@ -14,11 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="row checkbox" ng-repeat="task in tasks">
-        <div class="col-sm-6 col-sm-offset-3" >
-            <label>
-                <input type="checkbox" ng-click="delete(task)"> {{ task.value }}
-            </label>
-        </div>
+    <div class="text-center">
+        <a href="#/read" role="button" class="btn btn-default btn-lg">Read your tasks</a>
     </div>
 </div>
